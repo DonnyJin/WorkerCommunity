@@ -10,10 +10,12 @@ Redis
 KafKa
 Elasticsearch
 Spring Security、Spring Actuator
+
 **前端技术**
 HTML
 CSS
 JavaScript
+
 **项目描述**
 本项目主要涉及模块有权限模块、核心模块、性能模块、通知模块、搜素模块和其他模块
 
