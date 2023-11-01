@@ -1,6 +1,7 @@
 package com.donny.community;
 
 import com.donny.community.dao.DiscussPostMapper;
+import com.donny.community.entity.DiscussPost;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-class NowcoderApplicationTests {
+class CommunityApplicationTests {
     @Autowired
     private DiscussPostMapper discussPostMapper;
 
@@ -18,8 +19,8 @@ class NowcoderApplicationTests {
 
     @Test
     void postListTest() {
-        List<DiscussPostMapper> list = discussPostMapper.selectPostList(101);
-        System.out.println(list);
+//        List<DiscussPost> list = discussPostMapper.selectPostList(101);
+//        System.out.println(list);
     }
 
 }

@@ -13,6 +13,7 @@
             and user_id = #{userId}
         </if>
         order by type desc, create_time desc
+        limit #{offset}, #{limit}
     </select>
     <select id="selectPostRows" resultType="java.lang.Integer">
         select count(id) from discuss_post where status != 2
