@@ -16,6 +16,19 @@ spring:
     suffix: .html
     mode: HTML5
     prefix: classpath:/templates/
+  #MailProperties
+  mail:
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    port: 465
+    username: 1171314644@qq.com
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+    password: mttbyzbjoiclfgef
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -23,6 +36,7 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.donny.community.entity
+
 
 
 #logging:
