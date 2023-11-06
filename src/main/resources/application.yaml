@@ -35,8 +35,14 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    use-generated-keys: true
   type-aliases-package: com.donny.community.entity
 
+#community
+community:
+  path:
+    domain: http://localhost:8082
+    context-path: /community
 
 
 #logging:
