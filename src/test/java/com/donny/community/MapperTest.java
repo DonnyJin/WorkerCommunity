@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class MapperTest {
         user.setSalt("123");
         user.setEmail("123@gmail.com");
         user.setHeaderUrl("http://www.nowcoder.com/101.png");
-        user.setCreateTime(new Date());
+        user.setCreateTime(LocalDateTime.now());
 
         System.out.println(userMapper.insertUser(user));
     }

@@ -10,4 +10,6 @@ public interface UserService {
 
     Map<String, Object> register(User user);
 
+    Integer activate(Integer userId, String code);
+
 }

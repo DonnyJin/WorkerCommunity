@@ -24,4 +24,6 @@ public class DiscussPostServiceImpl implements DiscussPostService {
     public Integer getRowsCount(Integer userId) {
         return discussPostMapper.selectPostRows(userId);
     }
+
+
 }

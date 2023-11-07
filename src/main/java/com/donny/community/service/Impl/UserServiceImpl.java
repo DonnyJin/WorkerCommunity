@@ -3,6 +3,7 @@ package com.donny.community.service.Impl;
 import com.donny.community.dao.UserMapper;
 import com.donny.community.entity.User;
 import com.donny.community.service.UserService;
+import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.CommunityUtil;
 import com.donny.community.util.MailClient;
 import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
@@ -20,7 +21,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, CommunityConstant {
 
     @Autowired
     private UserMapper userMapper;
@@ -83,10 +84,26 @@ public class UserServiceImpl implements UserService {
         // 发送激活邮件
         Context context = new Context();
         context.setVariable("email", user.getEmail());
-        // http://localhost:8082/community/activation/101/code
+        // http://localhost:8082/community/activation/id/code
         String url = domain + contextPath + "/activation" + user.getId() + "/" + user.getActivationCode();
+        context.setVariable("url", url);
+        String content = engine.process("/mail/activation", context);
+        mailClient.sendMail(user.getEmail(), "激活账号", content);
 
         return map;
+    }
+
+    @Override
+    public Integer activate(Integer id, String code) {
+        User user = userMapper.selectById(id);
+        if (user.getStatus() == 1) {
+            return ACTIVATION_REPEAT;
+        } else if (user.getActivationCode() == code) {
+            userMapper.updateStatus(id, 1);
+            return ACTIVATION_SUCCESS;
+        } else {
+            return ACTIVATION_FAIL;
+        }
     }
 
 

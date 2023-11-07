@@ -9,4 +9,5 @@ public interface DiscussPostService {
     List<DiscussPost> getPosts(Integer userId, Integer offset, Integer limit);
 
     Integer getRowsCount(Integer userId);
+
 }
