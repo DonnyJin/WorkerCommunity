@@ -96,9 +96,9 @@ public class UserServiceImpl implements UserService, CommunityConstant {
     @Override
     public Integer activate(Integer id, String code) {
         User user = userMapper.selectById(id);
-        if (user.getStatus() == 1) {
+        if (user.getStatus().equals(1)) {
             return ACTIVATION_REPEAT;
-        } else if (user.getActivationCode() == code) {
+        } else if (user.getActivationCode().equals(code)) {
             userMapper.updateStatus(id, 1);
             return ACTIVATION_SUCCESS;
         } else {
