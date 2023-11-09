@@ -1,6 +1,8 @@
 package com.donny.community.service.Impl;
 
+import com.donny.community.dao.LoginTicketMapper;
 import com.donny.community.dao.UserMapper;
+import com.donny.community.entity.LoginTicket;
 import com.donny.community.entity.User;
 import com.donny.community.service.UserService;
 import com.donny.community.util.CommunityConstant;
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService, CommunityConstant {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Autowired
     private MailClient mailClient;
@@ -104,6 +109,48 @@ public class UserServiceImpl implements UserService, CommunityConstant {
         } else {
             return ACTIVATION_FAIL;
         }
+    }
+
+    @Override
+    public Map<String, Object> login(String username, String password, Integer expired) {
+        Map<String, Object> map = new HashMap<>();
+        if (!StringUtils.hasText(username)) {
+            map.put("usernameMsg", "账号不能为空!");
+            return map;
+        }
+        if (!StringUtils.hasText(password)) {
+            map.put("passwordMsg", "密码不能为空!");
+            return map;
+        }
+
+        //验证账号
+        User user = userMapper.selectByName(username);
+        if(user == null) {
+            map.put("usernameMsg", "该账号不存在!");
+            return map;
+        }
+        if(user.getStatus().equals(0)){
+            map.put("usernameMsg", "该账号未激活!");
+            return map;
+        }
+
+        //验证密码
+        password = CommunityUtil.md5Encode(password + user.getSalt());
+        if (!user.getPassword().equals(password)) {
+            map.put("passwordMsg", "用户名或密码不正确!");
+            return map;
+        }
+
+        //生成登录凭证
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(user.getId());
+        loginTicket.setTicket(CommunityUtil.generateUUID());
+        loginTicket.setStatus(0);
+        loginTicket.setExpired(LocalDateTime.now().plusSeconds(expired * 1000));
+        loginTicketMapper.insertLoginTicket(loginTicket);
+
+        map.put("ticket", loginTicket.getTicket());
+        return map;
     }
 
 

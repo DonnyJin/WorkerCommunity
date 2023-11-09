@@ -12,4 +12,6 @@ public interface UserService {
 
     Integer activate(Integer userId, String code);
 
+    Map<String, Object> login(String username, String password, Integer expired);
+
 }

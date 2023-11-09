@@ -1,19 +1,24 @@
 package com.donny.community.controller;
 
+import com.donny.community.entity.Page;
 import com.donny.community.entity.User;
 import com.donny.community.service.UserService;
 import com.donny.community.util.CommunityConstant;
 import com.google.code.kaptcha.Producer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.imageio.ImageIO;
+import javax.jws.WebParam;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
@@ -29,6 +34,9 @@ public class LoginController implements CommunityConstant {
 
     @Autowired
     Producer kaptchaProducer;
+
+    @Value("${community.path.context-path}")
+    private String contextPath;
 
     @GetMapping("/login")
     public String getLoginPage() {
@@ -92,6 +100,29 @@ public class LoginController implements CommunityConstant {
         } catch (IOException e) {
             log.error("验证码图片生成失败!" + e.getMessage());
         }
+    }
 
+    @PostMapping("/login")
+    public String login(String username, String password, String code, boolean remember,
+                        Model model, HttpSession session, HttpServletResponse response) {
+        String kaptcha = session.getAttribute("kaptcha").toString();
+        if(!StringUtils.hasText(kaptcha) || !StringUtils.hasText(code) || !kaptcha.equalsIgnoreCase(code)) {
+            model.addAttribute("codeMsg", "验证码不正确");
+            return "site/login";
+        }
+        //检查账号密码
+        Integer expired = remember ? REMEMBER_EXPIRED : DEFAULT_EXPIRED;
+        Map<String, Object> map = userService.login(username, password, expired);
+        if (map.containsKey("ticket")) {
+            Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
+            cookie.setPath(contextPath);
+            cookie.setMaxAge(expired);
+            response.addCookie(cookie);
+            return "redirect:/index";
+        } else {
+            model.addAttribute("usernameMsg", map.get("usernameMsg"));
+            model.addAttribute("passwordMsg", map.get("passwordMsg"));
+            return "site/login";
+        }
     }
 }
