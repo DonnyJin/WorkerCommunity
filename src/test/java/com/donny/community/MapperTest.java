@@ -62,8 +62,8 @@ public class MapperTest {
     void loginTicketTest() {
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setTicket("abc");
-        loginTicket.setStatus(0);
-        loginTicket.setExpired(LocalDateTime.now());
+        loginTicket.setStatus(1);
+//        loginTicket.setExpired(new Date(System.currentTimeMillis() + ));
         loginTicket.setUserId(2222);
 //        loginTicketMapper.insertLoginTicket(loginTicket);
         loginTicketMapper.updateStatus(loginTicket.getTicket(), 1);
