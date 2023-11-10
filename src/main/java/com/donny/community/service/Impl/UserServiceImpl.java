@@ -146,11 +146,17 @@ public class UserServiceImpl implements UserService, CommunityConstant {
         loginTicket.setUserId(user.getId());
         loginTicket.setTicket(CommunityUtil.generateUUID());
         loginTicket.setStatus(0);
-        loginTicket.setExpired(LocalDateTime.now().plusSeconds(expired * 1000));
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + expired * 1000));
+//        loginTicket.setExpired(new Date(System.currentTimeMillis() + expired * 1000));
         loginTicketMapper.insertLoginTicket(loginTicket);
 
         map.put("ticket", loginTicket.getTicket());
         return map;
+    }
+
+    @Override
+    public void logout(String ticket) {
+        loginTicketMapper.updateStatus(ticket, 0);
     }
 
 

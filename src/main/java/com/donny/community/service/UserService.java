@@ -14,4 +14,6 @@ public interface UserService {
 
     Map<String, Object> login(String username, String password, Integer expired);
 
+    void logout(String ticket);
+
 }
