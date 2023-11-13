@@ -19,4 +19,6 @@ public interface UserService {
 
     LoginTicket getLoginTicket(String ticket);
 
+    Integer updateHeader(int userId, String headerUrl);
+
 }

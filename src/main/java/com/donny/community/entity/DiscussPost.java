@@ -1,5 +1,6 @@
 package com.donny.community.entity;
 
+import com.donny.community.annotation.LoginRequired;
 import lombok.Data;
 
 import java.util.Date;

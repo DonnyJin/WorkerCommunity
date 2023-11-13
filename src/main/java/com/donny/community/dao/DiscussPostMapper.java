@@ -12,4 +12,6 @@ public interface DiscussPostMapper {
     List<DiscussPost> selectPostList(Integer userId, Integer offset, Integer limit);
 
     Integer selectPostRows(@Param("userId") Integer userId);
+
+
 }

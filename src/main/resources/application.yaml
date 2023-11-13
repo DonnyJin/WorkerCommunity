@@ -43,6 +43,7 @@ community:
   path:
     domain: http://localhost:8082
     context-path: /community
+    upload: D:\idea_project\WorkerCommunity\upload
 
 
 #logging:
