@@ -102,8 +102,6 @@ public class UserController {
         } finally {
             fileInputStream.close();
         }
-
-
     }
 
 }
