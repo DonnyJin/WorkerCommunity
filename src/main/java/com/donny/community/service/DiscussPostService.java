@@ -10,4 +10,7 @@ public interface DiscussPostService {
 
     Integer getRowsCount(Integer userId);
 
+    Integer addDiscussPost(DiscussPost discussPost);
+
+    DiscussPost findDiscussPost(Integer userId);
 }

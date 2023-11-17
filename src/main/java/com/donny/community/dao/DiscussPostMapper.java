@@ -13,5 +13,8 @@ public interface DiscussPostMapper {
 
     Integer selectPostRows(@Param("userId") Integer userId);
 
+    Integer insertDiscussPost(DiscussPost discussPost);
+
+    DiscussPost selectDiscussPostById(Integer id);
 
 }
