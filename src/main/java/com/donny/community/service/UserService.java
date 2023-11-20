@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface UserService {
 
-    User getUser(Integer id);
+    User getUserById(Integer id);
 
     Map<String, Object> register(User user);
 

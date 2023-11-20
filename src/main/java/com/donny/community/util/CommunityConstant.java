@@ -25,4 +25,14 @@ public interface CommunityConstant {
      * 记住我勾选后的超时时间(秒)
      */
     Integer REMEMBER_EXPIRED = 3600 * 24 * 14;
+
+    /**
+     * 实体类型：帖子
+     */
+    Integer ENTITY_TYPE_POST = 1;
+
+    /**
+     * 实体类型：评论
+     */
+    Integer ENTITY_TYPE_COMMENT = 2;
 }

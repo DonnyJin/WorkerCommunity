@@ -5,7 +5,6 @@ import com.donny.community.entity.Page;
 import com.donny.community.entity.User;
 import com.donny.community.service.DiscussPostService;
 import com.donny.community.service.UserService;
-import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +35,7 @@ public class HomeController {
             for(DiscussPost post : posts) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("post", post);
-                User user = userService.getUser(post.getUserId());
+                User user = userService.getUserById(post.getUserId());
                 map.put("user", user);
                 discussPosts.add(map);
             }

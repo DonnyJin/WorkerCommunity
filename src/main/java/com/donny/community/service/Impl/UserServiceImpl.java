@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService, CommunityConstant {
 
 
     @Override
-    public User getUser(Integer id) {
+    public User getUserById(Integer id) {
         return userMapper.selectById(id);
     }
 
