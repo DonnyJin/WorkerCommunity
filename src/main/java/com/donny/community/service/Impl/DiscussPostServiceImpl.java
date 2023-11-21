@@ -39,7 +39,7 @@ public class DiscussPostServiceImpl implements DiscussPostService {
         discussPost.setTitle(sensitiveFilter.filter(discussPost.getTitle()));
         discussPost.setContent(sensitiveFilter.filter(discussPost.getContent()));
 
-        discussPost.setStatus(0);
+        discussPost.setStatus(1);
         discussPost.setType(0);
 
         return discussPostMapper.insertDiscussPost(discussPost);

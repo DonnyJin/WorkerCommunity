@@ -16,6 +16,6 @@
 
     <select id="selectCountByEntity" resultType="java.lang.Integer">
         select count(id) from comment
-                where statut = 1 and entity_type = #{entityType} and entity_id = #{entityId}
+                where status = 1 and entity_type = #{entityType} and entity_id = #{entityId}
     </select>
 </mapper>
