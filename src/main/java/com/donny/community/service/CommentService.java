@@ -9,4 +9,6 @@ public interface CommentService {
     List<Comment> getCommentByEntity(Integer entityType, Integer entityId, Integer offset, Integer limit);
 
     Integer getCommentCount(Integer entityType, Integer entityId);
+
+    Integer addComment(Comment comment);
 }
