@@ -5,6 +5,7 @@ import com.donny.community.entity.Page;
 import com.donny.community.entity.User;
 import com.donny.community.service.DiscussPostService;
 import com.donny.community.service.UserService;
+import com.donny.community.util.HostHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    HostHolder hostHolder;
 
     @GetMapping("/index")
     public String getIndexPage(Model model, Page page) {

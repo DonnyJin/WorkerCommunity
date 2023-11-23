@@ -2,10 +2,9 @@ package com.donny.community;
 
 import com.donny.community.dao.DiscussPostMapper;
 import com.donny.community.dao.LoginTicketMapper;
+import com.donny.community.dao.MessageMapper;
 import com.donny.community.dao.UserMapper;
-import com.donny.community.entity.DiscussPost;
-import com.donny.community.entity.LoginTicket;
-import com.donny.community.entity.User;
+import com.donny.community.entity.*;
 import com.donny.community.service.DiscussPostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,12 @@ public class MapperTest {
 
     @Autowired
     private DiscussPostService discussPostService;
+
+    @Autowired
+    private MessageMapper messageMapper;
+
+
+
     @Test
     void selectUserTest() {
 //        User user = userMapper.selectById(101);
@@ -69,5 +74,22 @@ public class MapperTest {
         loginTicketMapper.updateStatus(loginTicket.getTicket(), 1);
         LoginTicket selected = loginTicketMapper.selectByTicket(loginTicket.getTicket());
         System.out.println(selected);
+    }
+
+    @Test
+    void messageTest() {
+        List<Message> messages = messageMapper.selectConversationsById(111, 0, 20);
+//        for (Message message : messages) {
+//            System.out.println(message);
+//        }
+        Integer count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+
+        Integer count1 = messageMapper.selectMessageCount("111_112");
+        System.out.println(count1);
+
+//        Integer count2 = messageMapper.selectMessageUnreadCount(131, "111_131");
+        Integer count2 = messageMapper.selectMessageUnreadCount(131, null);
+        System.out.println(count2);
     }
 }

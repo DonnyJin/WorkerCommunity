@@ -7,7 +7,6 @@ import com.donny.community.entity.Comment;
 import com.donny.community.service.CommentService;
 import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.SensitiveFilter;
-import org.omg.CORBA.TRANSACTION_REQUIRED;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
