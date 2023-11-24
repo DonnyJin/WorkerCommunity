@@ -3,8 +3,10 @@ package com.donny.community.service.Impl;
 import com.donny.community.dao.MessageMapper;
 import com.donny.community.entity.Message;
 import com.donny.community.service.MessageService;
+import com.donny.community.util.SensitiveFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -13,6 +15,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     MessageMapper messageMapper;
+
+    @Autowired
+    SensitiveFilter sensitiveFilter;
 
     @Override
     public List<Message> findConversations(Integer userId, Integer offset, Integer limit) {
@@ -38,4 +43,17 @@ public class MessageServiceImpl implements MessageService {
     public Integer findMessageUnreadCount(Integer userId, String conversationId) {
         return messageMapper.selectMessageUnreadCount(userId, conversationId);
     }
+
+    @Override
+    public Integer addMessage(Message message) {
+        message.setContent(HtmlUtils.htmlEscape(message.getContent()));
+        message.setContent(sensitiveFilter.filter(message.getContent()));
+        return messageMapper.insertMessage(message);
+    }
+
+    @Override
+    public Integer readMessages(List<Integer> ids) {
+        return messageMapper.updateStatus(ids, 1);
+    }
+
 }

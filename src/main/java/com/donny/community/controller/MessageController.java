@@ -6,19 +6,14 @@ import com.donny.community.entity.Page;
 import com.donny.community.entity.User;
 import com.donny.community.service.MessageService;
 import com.donny.community.service.UserService;
+import com.donny.community.util.CommunityUtil;
 import com.donny.community.util.HostHolder;
-import javafx.beans.binding.ObjectExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/message")
@@ -90,8 +85,40 @@ public class MessageController {
 
         model.addAttribute("target", userService.getUserById(targetID));
 
+        // 获取未读的私信,并改为已读
+        if (messageList != null) {
+            List<Integer> unreadIds = new ArrayList<>();
+            Integer toId = hostHolder.getUser().getId();
+            for (Message message : messageList) {
+                if (message.getToId().equals(toId) && message.getStatus() == 0) {
+                    unreadIds.add(message.getId());
+                }
+            }
+            if (!unreadIds.isEmpty()) {
+                messageService.readMessages(unreadIds);
+            }
+        }
+
         return "site/letter-detail";
     }
 
+    @PostMapping("/send")
+    @ResponseBody
+    public String sendMessage(String toName, String content) {
+        User target = userService.findUserByName(toName);
+        if (target == null) {
+            return CommunityUtil.getJSONString(1, "目标用户不存在");
+        }
+        Message message = new Message();
+        message.setContent(content);
+        message.setFromId(hostHolder.getUser().getId());
+        message.setToId(target.getId());
+        String conversationId = message.getFromId() < message.getToId() ? message.getFromId() + "_" + message.getToId() : message.getToId() + "_" + message.getFromId();
+        message.setConversationId(conversationId);
+        message.setCreateTime(new Date());
+
+        messageService.addMessage(message);
+        return CommunityUtil.getJSONString(0);
+    }
 
 }

@@ -7,6 +7,23 @@
         id, from_id, to_id, conversation_id, content, status, create_time
     </sql>
 
+    <sql id="insertFields">
+        from_id, to_id, conversation_id, content, <if test="status != null">status, </if> create_time
+    </sql>
+
+    <insert id="insertMessage" parameterType="com.donny.community.entity.Message" keyProperty="id">
+        insert into message (<include refid="insertFields"></include>)
+        values(#{fromId}, #{toId}, #{conversationId}, #{content}, <if test="status!=null">#{status},</if> #{createTime})
+    </insert>
+
+    <update id="updateStatus">
+        update message set status = #{status}
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
     <select id="selectConversationsById" resultType="com.donny.community.entity.Message">
         select <include refid="selectFields"></include>
         from message

@@ -42,4 +42,9 @@ public interface MessageMapper {
      * @return
      */
     Integer selectMessageUnreadCount(Integer userId, String conversationId);
+
+    Integer insertMessage(Message message);
+
+    Integer updateStatus(List<Integer> ids, Integer status);
+
 }
