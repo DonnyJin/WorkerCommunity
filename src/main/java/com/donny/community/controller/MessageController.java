@@ -44,7 +44,7 @@ public class MessageController {
                 map.put("conversation", message);
                 map.put("messageCount", messageService.findMessageCount(message.getConversationId()));
                 map.put("unreadCount", messageService.findMessageUnreadCount(user.getId(), message.getConversationId()));
-                Integer targetId = user.getId() == message.getFromId() ? message.getToId() : message.getFromId();
+                Integer targetId = user.getId().equals(message.getFromId()) ? message.getToId() : message.getFromId();
                 map.put("target", userService.getUserById(targetId));
 
                 conversations.add(map);
@@ -81,7 +81,7 @@ public class MessageController {
         String[] ids = conversationId.split("_");
         Integer id0 = Integer.parseInt(ids[0]);
         Integer id1 = Integer.parseInt(ids[1]);
-        Integer targetID = hostHolder.getUser().getId() == id0 ? id1 : id0;
+        Integer targetID = hostHolder.getUser().getId().equals(id0) ? id1 : id0;
 
         model.addAttribute("target", userService.getUserById(targetID));
 
@@ -105,6 +105,7 @@ public class MessageController {
     @PostMapping("/send")
     @ResponseBody
     public String sendMessage(String toName, String content) {
+        int i = 1 / 0;
         User target = userService.findUserByName(toName);
         if (target == null) {
             return CommunityUtil.getJSONString(1, "目标用户不存在");
