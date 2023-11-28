@@ -29,6 +29,11 @@ spring:
           ssl:
             enable: true
     password: mttbyzbjoiclfgef
+  # RedisProperties
+  redis:
+    database: 11
+    host: localhost
+    port: 6379
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -45,7 +50,7 @@ community:
     context-path: /community
     upload: D:\idea_project\WorkerCommunity\upload
 
-
 #logging:
 #  level:
 #    com.donny.community = debug
+

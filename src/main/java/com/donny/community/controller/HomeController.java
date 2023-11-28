@@ -4,7 +4,9 @@ import com.donny.community.entity.DiscussPost;
 import com.donny.community.entity.Page;
 import com.donny.community.entity.User;
 import com.donny.community.service.DiscussPostService;
+import com.donny.community.service.LikeService;
 import com.donny.community.service.UserService;
+import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.HostHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,16 @@ import java.util.*;
 
 @Controller
 @Slf4j
-public class HomeController {
+public class HomeController implements CommunityConstant {
 
     @Autowired
     private DiscussPostService discussPostService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    LikeService likeService;
 
     @Autowired
     HostHolder hostHolder;
@@ -41,6 +46,9 @@ public class HomeController {
                 map.put("post", post);
                 User user = userService.getUserById(post.getUserId());
                 map.put("user", user);
+
+                Long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST, post.getId());
+                map.put("likeCount", likeCount);
                 discussPosts.add(map);
             }
         }
