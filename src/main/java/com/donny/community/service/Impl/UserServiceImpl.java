@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService, CommunityConstant {
         user.setStatus(0);
         user.setActivationCode(CommunityUtil.generateUUID());
         user.setHeaderUrl(String.format("https://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
-        user.setCreateTime(LocalDateTime.now());
+        user.setCreateTime(new Date());
 
         userMapper.insertUser(user);
         // 发送激活邮件

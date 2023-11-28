@@ -53,7 +53,7 @@ public class MapperTest {
         user.setSalt("123");
         user.setEmail("123@gmail.com");
         user.setHeaderUrl("http://www.nowcoder.com/101.png");
-        user.setCreateTime(LocalDateTime.now());
+        user.setCreateTime(new Date());
 
         System.out.println(userMapper.insertUser(user));
     }

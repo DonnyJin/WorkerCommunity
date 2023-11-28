@@ -25,10 +25,10 @@ public class LikeController {
     @PostMapping("/like")
     @ResponseBody
     @LoginRequired
-    public String like(Integer entityType, Integer entityId) {
+    public String like(Integer entityType, Integer entityId, Integer entityUserId) {
         User user = hostHolder.getUser();
-
-        likeService.like(user.getId(), entityType, entityId);
+        // 点赞
+        likeService.like(user.getId(), entityType, entityId, entityUserId);
 
         Long likeCount = likeService.findEntityLikeCount(entityType, entityId);
 

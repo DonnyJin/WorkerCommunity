@@ -3,6 +3,7 @@ package com.donny.community.controller;
 
 import com.donny.community.annotation.LoginRequired;
 import com.donny.community.entity.User;
+import com.donny.community.service.LikeService;
 import com.donny.community.service.UserService;
 import com.donny.community.util.CommunityUtil;
 import com.donny.community.util.HostHolder;
@@ -31,6 +32,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LikeService likeService;
 
     @Autowired
     HostHolder hostHolder;
@@ -104,4 +108,23 @@ public class UserController {
         }
     }
 
+    /**
+     * 个人主页
+     */
+    @GetMapping("/profile/{userId}")
+    @LoginRequired
+    public String userProfilePage(@PathVariable Integer userId, Model model) {
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            throw new RuntimeException("该用户不存在!");
+        }
+
+        // 用户
+        model.addAttribute("user", user);
+        // 点赞数量
+        Integer userLikeCount = likeService.findUserLikeCount(userId);
+        model.addAttribute("userLikeCount", userLikeCount);
+
+        return "site/profile";
+    }
 }
