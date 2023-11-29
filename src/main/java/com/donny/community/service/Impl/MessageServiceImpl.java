@@ -14,10 +14,10 @@ import java.util.List;
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
-    MessageMapper messageMapper;
+    private MessageMapper messageMapper;
 
     @Autowired
-    SensitiveFilter sensitiveFilter;
+    private SensitiveFilter sensitiveFilter;
 
     @Override
     public List<Message> findConversations(Integer userId, Integer offset, Integer limit) {

@@ -14,10 +14,10 @@ import java.util.List;
 public class DiscussPostServiceImpl implements DiscussPostService {
 
     @Autowired
-    DiscussPostMapper discussPostMapper;
+    private DiscussPostMapper discussPostMapper;
 
     @Autowired
-    SensitiveFilter sensitiveFilter;
+    private SensitiveFilter sensitiveFilter;
 
     @Override
     public List<DiscussPost> getPosts(Integer userId, Integer offset, Integer limit) {

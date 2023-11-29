@@ -20,13 +20,13 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService, CommunityConstant {
 
     @Autowired
-    CommentMapper commentMapper;
+    private CommentMapper commentMapper;
 
     @Autowired
-    DiscussPostMapper discussPostMapper;
+    private DiscussPostMapper discussPostMapper;
 
     @Autowired
-    SensitiveFilter sensitiveFilter;
+    private SensitiveFilter sensitiveFilter;
 
     @Override
     public List<Comment> getCommentByEntity(Integer entityType, Integer entityId, Integer offset, Integer limit) {
