@@ -17,10 +17,10 @@ import java.util.Map;
 public class LikeController {
 
     @Autowired
-    LikeService likeService;
+    private LikeService likeService;
 
     @Autowired
-    HostHolder hostHolder;
+    private HostHolder hostHolder;
 
     @PostMapping("/like")
     @ResponseBody

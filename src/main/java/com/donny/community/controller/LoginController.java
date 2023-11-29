@@ -31,10 +31,10 @@ import java.util.Map;
 public class LoginController implements CommunityConstant {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    Producer kaptchaProducer;
+    private Producer kaptchaProducer;
 
     @Value("${community.path.context-path}")
     private String contextPath;

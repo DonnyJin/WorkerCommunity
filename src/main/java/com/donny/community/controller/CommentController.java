@@ -17,10 +17,10 @@ import java.util.Date;
 public class CommentController {
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @Autowired
-    HostHolder hostHolder;
+    private HostHolder hostHolder;
 
     @PostMapping("/add/{discussPostId}")
     public String addComment(@PathVariable Integer discussPostId, Comment comment) {

@@ -3,8 +3,10 @@ package com.donny.community.controller;
 
 import com.donny.community.annotation.LoginRequired;
 import com.donny.community.entity.User;
+import com.donny.community.service.FollowService;
 import com.donny.community.service.LikeService;
 import com.donny.community.service.UserService;
+import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.CommunityUtil;
 import com.donny.community.util.HostHolder;
 import lombok.extern.slf4j.Slf4j;
@@ -28,16 +30,19 @@ import java.io.OutputStream;
 @Controller
 @RequestMapping("/user")
 @Slf4j
-public class UserController {
+public class UserController implements CommunityConstant {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    LikeService likeService;
+    private LikeService likeService;
 
     @Autowired
-    HostHolder hostHolder;
+    private FollowService followService;
+
+    @Autowired
+    private HostHolder hostHolder;
 
     @Value("${community.path.upload}")
     private String uploadPath;
@@ -124,6 +129,14 @@ public class UserController {
         // 点赞数量
         Integer userLikeCount = likeService.findUserLikeCount(userId);
         model.addAttribute("userLikeCount", userLikeCount);
+        // 关注数量
+        Long followeeCount = followService.findFolloweeCount(userId, ENTITY_TYPE_USER);
+        model.addAttribute("followeeCount", followeeCount);
+        // 粉丝数量
+        Long followerCount = followService.findFollowerCount(ENTITY_TYPE_USER, userId);
+        model.addAttribute("followerCount", followerCount);
+        // 当前登录用户是否已经关注
+
 
         return "site/profile";
     }

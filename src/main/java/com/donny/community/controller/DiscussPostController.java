@@ -29,13 +29,13 @@ public class DiscussPostController implements CommunityConstant {
     private UserService userService;
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @Autowired
-    LikeService likeService;
+    private LikeService likeService;
 
     @Autowired
-    HostHolder hostHolder;
+    private HostHolder hostHolder;
 
     @PostMapping("/add")
     @ResponseBody

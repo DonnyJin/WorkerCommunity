@@ -27,10 +27,10 @@ public class HomeController implements CommunityConstant {
     private UserService userService;
 
     @Autowired
-    LikeService likeService;
+    private LikeService likeService;
 
     @Autowired
-    HostHolder hostHolder;
+    private HostHolder hostHolder;
 
     @GetMapping("/index")
     public String getIndexPage(Model model, Page page) {
