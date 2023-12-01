@@ -47,4 +47,18 @@ public interface MessageMapper {
 
     Integer updateStatus(List<Integer> ids, Integer status);
 
+    /**
+     * 查询某个kafka topic下最新的通知
+     */
+    Message selectLastestNotice(Integer userId, String topic);
+
+    /**
+     * 查询某个kafka topic通知的数量
+     */
+    Integer selectNoticeCount(Integer userId, String topic);
+
+    /**
+     * 查询未读的通知数量
+     */
+    Integer selectUnreadNoticeCount(Integer userId, String topic);
 }

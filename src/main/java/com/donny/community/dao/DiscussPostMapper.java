@@ -1,5 +1,6 @@
 package com.donny.community.dao;
 
+import com.donny.community.entity.Comment;
 import com.donny.community.entity.DiscussPost;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,5 +19,7 @@ public interface DiscussPostMapper {
     DiscussPost selectDiscussPostById(Integer id);
 
     Integer updateCommentCount(Integer id, int commentCount);
+
+    Comment selectCommentById(Integer id);
 
 }

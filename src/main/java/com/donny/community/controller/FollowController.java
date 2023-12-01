@@ -1,8 +1,10 @@
 package com.donny.community.controller;
 
 import com.donny.community.annotation.LoginRequired;
+import com.donny.community.entity.Event;
 import com.donny.community.entity.Page;
 import com.donny.community.entity.User;
+import com.donny.community.event.EventProducer;
 import com.donny.community.service.FollowService;
 import com.donny.community.service.UserService;
 import com.donny.community.util.CommunityConstant;
@@ -31,6 +33,9 @@ public class FollowController implements CommunityConstant {
     private UserService userService;
 
     @Autowired
+    private EventProducer producer;
+
+    @Autowired
     private HostHolder hostHolder;
 
     @Autowired
@@ -44,6 +49,16 @@ public class FollowController implements CommunityConstant {
         User user = hostHolder.getUser();
 
         followService.follow(user.getId(), entityType, entityId);
+
+        // 触发关注事件
+        Event event = new Event();
+        event.setTopic(TOPIC_FOLLOW);
+        event.setUserId(hostHolder.getUser().getId());
+        event.setEntityType(entityType);
+        event.setEntityId(entityId);
+        event.setEntityUserId(entityId);
+
+        producer.fireEvent(event);
 
         return CommunityUtil.getJSONString(0, "已关注");
     }

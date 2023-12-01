@@ -1,6 +1,7 @@
 package com.donny.community.service.Impl;
 
 import com.donny.community.dao.DiscussPostMapper;
+import com.donny.community.entity.Comment;
 import com.donny.community.entity.DiscussPost;
 import com.donny.community.service.DiscussPostService;
 import com.donny.community.util.SensitiveFilter;
@@ -53,6 +54,11 @@ public class DiscussPostServiceImpl implements DiscussPostService {
     @Override
     public Integer updateCommentCount(Integer id, Integer commentCount) {
         return discussPostMapper.updateCommentCount(id, commentCount);
+    }
+
+    @Override
+    public Comment findCommentById(Integer id) {
+        return discussPostMapper.selectCommentById(id);
     }
 
 

@@ -1,23 +1,27 @@
 package com.donny.community.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.donny.community.entity.Message;
 import com.donny.community.entity.Page;
 import com.donny.community.entity.User;
 import com.donny.community.service.MessageService;
 import com.donny.community.service.UserService;
+import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.CommunityUtil;
 import com.donny.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
+import javax.jws.WebParam;
 import java.util.*;
 
 @Controller
 @RequestMapping("/message")
-public class MessageController {
+public class MessageController implements CommunityConstant {
 
     @Autowired
     private MessageService messageService;
@@ -122,4 +126,21 @@ public class MessageController {
         return CommunityUtil.getJSONString(0);
     }
 
+    @GetMapping("/notice/list")
+    public String getNoticeList(Model model) {
+        User user = hostHolder.getUser();
+
+        // 查询评论类通知
+        Message notice = messageService.findLastestNotice(user.getId(), TOPIC_COMMENT);
+        Map<String, Object> noticeVO = new HashMap<>();
+        if (notice != null) {
+            noticeVO.put("notice", notice);
+            String content = HtmlUtils.htmlUnescape(notice.getContent());
+            Map<String, Object> data = JSONObject.parseObject(content, HashMap.class);
+
+        }
+        // 查询点赞类通知
+
+        // 查询关注类通知
+    }
 }

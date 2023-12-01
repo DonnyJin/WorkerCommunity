@@ -29,6 +29,8 @@ public class ServiceLogAspect {
     public void before(JoinPoint joinPoint) {
         // 用户访问了什么方法
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        // 在消息队列通知时，不是通过Controller调用的Service层方法，因此ServletRequestAttributes为空
+        if (attributes == null) return;
         HttpServletRequest request = attributes.getRequest();
         String ip = request.getRemoteHost();
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());

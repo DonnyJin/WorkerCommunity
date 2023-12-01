@@ -20,4 +20,10 @@ public interface MessageService {
 
     Integer readMessages(List<Integer> ids);
 
+    Message findLastestNotice(Integer userId, String topic);
+
+    Integer findNoticeCount(Integer userId, String topic);
+
+    Integer findUnreadNoticeCount(Integer userId, String topic);
+
 }

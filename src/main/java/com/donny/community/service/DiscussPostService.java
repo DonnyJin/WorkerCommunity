@@ -1,5 +1,6 @@
 package com.donny.community.service;
 
+import com.donny.community.entity.Comment;
 import com.donny.community.entity.DiscussPost;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface DiscussPostService {
     DiscussPost findDiscussPost(Integer userId);
 
     Integer updateCommentCount(Integer id, Integer commentCount);
+
+    Comment findCommentById(Integer id);
 }
