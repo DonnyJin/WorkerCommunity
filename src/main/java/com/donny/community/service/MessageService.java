@@ -26,4 +26,5 @@ public interface MessageService {
 
     Integer findUnreadNoticeCount(Integer userId, String topic);
 
+    List<Message> findNoticeList(Integer userId, String topic, Integer offset, Integer limit);
 }
