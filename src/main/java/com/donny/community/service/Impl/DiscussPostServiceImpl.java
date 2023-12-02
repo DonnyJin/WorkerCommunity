@@ -3,7 +3,9 @@ package com.donny.community.service.Impl;
 import com.donny.community.dao.DiscussPostMapper;
 import com.donny.community.entity.Comment;
 import com.donny.community.entity.DiscussPost;
+import com.donny.community.entity.Event;
 import com.donny.community.service.DiscussPostService;
+import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.SensitiveFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import org.springframework.web.util.HtmlUtils;
 import java.util.List;
 
 @Service
-public class DiscussPostServiceImpl implements DiscussPostService {
+public class DiscussPostServiceImpl implements DiscussPostService, CommunityConstant {
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
@@ -42,6 +44,8 @@ public class DiscussPostServiceImpl implements DiscussPostService {
 
         discussPost.setStatus(1);
         discussPost.setType(0);
+
+
 
         return discussPostMapper.insertDiscussPost(discussPost);
     }

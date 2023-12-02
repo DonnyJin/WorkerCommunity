@@ -1,9 +1,7 @@
 package com.donny.community.controller;
 
-import com.donny.community.entity.Comment;
-import com.donny.community.entity.DiscussPost;
-import com.donny.community.entity.Page;
-import com.donny.community.entity.User;
+import com.donny.community.entity.*;
+import com.donny.community.event.EventProducer;
 import com.donny.community.service.CommentService;
 import com.donny.community.service.DiscussPostService;
 import com.donny.community.service.LikeService;
@@ -35,6 +33,9 @@ public class DiscussPostController implements CommunityConstant {
     private LikeService likeService;
 
     @Autowired
+    private EventProducer producer;
+
+    @Autowired
     private HostHolder hostHolder;
 
     @PostMapping("/add")
@@ -51,6 +52,16 @@ public class DiscussPostController implements CommunityConstant {
         discussPost.setCreateTime(new Date());
 
         discussPostService.addDiscussPost(discussPost);
+
+        // 触发发帖事件
+        Event event = new Event();
+        event.setTopic(TOPIC_PUBLISH);
+        event.setUserId(user.getId());
+        event.setEntityType(ENTITY_TYPE_POST);
+        event.setEntityId(discussPost.getId());
+
+        producer.fireEvent(event);
+
         // 报错的情况以后统一处理
         return CommunityUtil.getJSONString(0, "发布成功");
     }

@@ -1,8 +1,12 @@
 package com.donny.community.event;
 
 import com.alibaba.fastjson.JSONObject;
+import com.donny.community.entity.Comment;
+import com.donny.community.entity.DiscussPost;
 import com.donny.community.entity.Event;
 import com.donny.community.entity.Message;
+import com.donny.community.service.DiscussPostService;
+import com.donny.community.service.ElasticSearchService;
 import com.donny.community.service.MessageService;
 import com.donny.community.util.CommunityConstant;
 import javafx.beans.binding.ObjectExpression;
@@ -22,6 +26,12 @@ public class EventConsumer implements CommunityConstant {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private DiscussPostService discussPostService;
+
+    @Autowired
+    private ElasticSearchService elasticSearchService;
 
     @KafkaListener(topics = {TOPIC_COMMENT, TOPIC_LIKE, TOPIC_FOLLOW})
     public void handleEventMessage(ConsumerRecord record) {
@@ -51,6 +61,23 @@ public class EventConsumer implements CommunityConstant {
         }
         message.setContent(JSONObject.toJSONString(content));
         messageService.addMessage(message);
+    }
+
+    @KafkaListener(topics = {TOPIC_PUBLISH})
+    public void handlePublish(ConsumerRecord record) {
+        if (record == null || record.value() == null) {
+            log.error("消息的内容为空");
+            return;
+        }
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            log.error("消息格式错误!");
+            return;
+        }
+
+        DiscussPost post = discussPostService.findDiscussPost(event.getEntityId());
+        elasticSearchService.saveDiscussPost(post);
+
     }
 
 }
