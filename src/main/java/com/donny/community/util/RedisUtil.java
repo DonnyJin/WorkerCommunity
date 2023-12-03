@@ -14,7 +14,7 @@ public class RedisUtil {
 
 
     /**
-     *某个实体的赞
+     * 某个实体收到的赞
      * like:entityType:entityId -> set(userId)
      * @param entityType
      * @param entityId

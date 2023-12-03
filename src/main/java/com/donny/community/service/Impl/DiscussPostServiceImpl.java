@@ -44,8 +44,7 @@ public class DiscussPostServiceImpl implements DiscussPostService, CommunityCons
 
         discussPost.setStatus(1);
         discussPost.setType(0);
-
-
+        discussPost.setCommentCount(0);
 
         return discussPostMapper.insertDiscussPost(discussPost);
     }

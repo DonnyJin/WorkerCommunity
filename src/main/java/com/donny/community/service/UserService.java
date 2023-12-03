@@ -3,8 +3,10 @@ package com.donny.community.service;
 import com.donny.community.entity.LoginTicket;
 import com.donny.community.entity.User;
 import com.donny.community.util.RedisUtil;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.jws.soap.SOAPBinding;
+import java.util.Collection;
 import java.util.Map;
 
 public interface UserService {
@@ -39,4 +41,6 @@ public interface UserService {
      * 数据变更时清楚缓存数据
      */
     void clearCache(Integer userId);
+
+    Collection<? extends GrantedAuthority> getAuthorities(Integer userId);
 }

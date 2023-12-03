@@ -10,6 +10,7 @@ import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.CommunityUtil;
 import com.donny.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -77,7 +78,7 @@ public class DiscussPostController implements CommunityConstant {
         Long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST, id);
         model.addAttribute("likeCount", likeCount);
         // 点赞状态
-        Integer likeStatus = hostHolder == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_POST, id);
+        Integer likeStatus = hostHolder.getUser() == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_POST, id);
         model.addAttribute("likeStatus", likeStatus);
         //评论: 给帖子的评论
         //回复: 给评论的评论
@@ -96,7 +97,7 @@ public class DiscussPostController implements CommunityConstant {
                 Long likeCount2 = likeService.findEntityLikeCount(ENTITY_TYPE_COMMENT, comment.getId());
                 commentVO.put("likeCount", likeCount2);
                 // 点赞状态
-                Integer likeStatus2 = hostHolder == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_COMMENT, comment.getId());
+                Integer likeStatus2 = hostHolder.getUser() == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_COMMENT, comment.getId());
                 commentVO.put("likeStatus", likeStatus2);
                 //查询回复, 不分页
                 List<Comment> replies = commentService.getCommentByEntity(ENTITY_TYPE_COMMENT, comment.getId(),
@@ -114,7 +115,7 @@ public class DiscussPostController implements CommunityConstant {
                         Long likeCount3 = likeService.findEntityLikeCount(ENTITY_TYPE_COMMENT, reply.getId());
                         replyVO.put("likeCount", likeCount3);
                         // 点赞状态
-                        Integer likeStatus3 = hostHolder == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_COMMENT, reply.getId());
+                        Integer likeStatus3 = hostHolder.getUser() == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_COMMENT, reply.getId());
                         replyVO.put("likeStatus", likeStatus3);
 
                         replyVOList.add(replyVO);

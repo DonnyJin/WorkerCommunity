@@ -14,16 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -221,6 +219,26 @@ public class UserServiceImpl implements UserService, CommunityConstant {
     public void clearCache(Integer userId) {
         String userKey = RedisUtil.getUserKey(userId);
         redisTemplate.delete(userKey);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(Integer userId) {
+        User user = this.getUserById(userId);
+
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                if (user.getType() == 1) {
+                    return AUTHORITY_ADMIN;
+                } else if (user.getType() == 2) {
+                    return AUTHORITY_MODERATOR;
+                } else {
+                    return AUTHORITY_USER;
+                }
+            }
+        });
+        return list;
     }
 
 

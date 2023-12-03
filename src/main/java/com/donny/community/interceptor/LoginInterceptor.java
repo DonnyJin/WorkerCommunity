@@ -15,6 +15,7 @@ import static com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOU
 
 
 @Component
+@Deprecated
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired

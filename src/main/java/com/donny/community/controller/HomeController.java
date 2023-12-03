@@ -55,4 +55,12 @@ public class HomeController implements CommunityConstant {
         model.addAttribute("discussPosts",discussPosts);
         return "/index";
     }
+
+    /**
+     * 权限不足时的跳转
+     */
+    @GetMapping("/denied")
+    public String getDeniedPage() {
+        return "/error/404";
+    }
 }
