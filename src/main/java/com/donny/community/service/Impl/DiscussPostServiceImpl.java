@@ -64,5 +64,15 @@ public class DiscussPostServiceImpl implements DiscussPostService, CommunityCons
         return discussPostMapper.selectCommentById(id);
     }
 
+    @Override
+    public Integer updateTypeById(Integer id, Integer type) {
+        return discussPostMapper.updateType(id, type);
+    }
+
+    @Override
+    public Integer updateStatusById(Integer id, Integer status) {
+        return discussPostMapper.updateStatus(id, status);
+    }
+
 
 }

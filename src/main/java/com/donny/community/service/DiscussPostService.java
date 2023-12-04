@@ -18,4 +18,8 @@ public interface DiscussPostService {
     Integer updateCommentCount(Integer id, Integer commentCount);
 
     Comment findCommentById(Integer id);
+
+    Integer updateTypeById(Integer id, Integer type);
+
+    Integer updateStatusById(Integer id, Integer status);
 }

@@ -42,12 +42,13 @@ public interface CommunityConstant {
     Integer ENTITY_TYPE_USER = 3;
 
     /**
-     * 主题:评论、点赞、关注、发帖
+     * 主题:评论、点赞、关注、发帖、删帖
      */
     String TOPIC_COMMENT = "comment";
     String TOPIC_LIKE = "like";
     String TOPIC_FOLLOW = "follow";
     String TOPIC_PUBLISH = "publish";
+    String TOPIC_DELETE = "delete";
     /**
      * 系统ID
      */

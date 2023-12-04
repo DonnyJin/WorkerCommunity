@@ -71,5 +71,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         hostHolder.clear();
+//        SecurityContextHolder.clearContext();
+//        securityContextRepository.saveContext(SecurityContextHolder.getContext(), request, response);
     }
 }
