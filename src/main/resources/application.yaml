@@ -45,8 +45,32 @@ spring:
   elasticsearch:
     rest:
       uris: localhost:9200
-
-
+  #TaskExecution
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 15
+        queue-capacity: 100
+    #TaskScheduling
+    scheduling:
+      pool:
+        size: 5
+  quartz:
+    job-store-type: jdbc
+    scheduler-name: communityScheduler
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCelegate
+            isClustered: true
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 5
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -62,9 +86,8 @@ community:
     domain: http://localhost:8082
     context-path: /community
     upload: D:\idea_project\WorkerCommunity\upload
+# slfj
+logging:
+  level:
+    com.donny: debug
 
-
-
-#logging:
-#  level:
-#    com.donny.community = debug
