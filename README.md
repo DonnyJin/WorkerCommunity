@@ -3,15 +3,16 @@
 
 **后端技术**
 Spring
-SpringMVC
-SpringBoot
-MySQL
-Redis
-KafKa
-Elasticsearch
-Spring Security
-Spring Actuator
-Quartz
+、SpringMVC
+、SpringBoot
+、MySQL
+、Redis
+、KafKa
+、Elasticsearch
+、Spring Security
+、Spring Actuator
+、Quartz
+
 **前端技术**
 HTML
 CSS
