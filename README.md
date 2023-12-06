@@ -11,6 +11,7 @@ Spring
 、Elasticsearch
 、Spring Security
 、Spring Actuator
+、Quartz
 
 **前端技术**
 HTML
