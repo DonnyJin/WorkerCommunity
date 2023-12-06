@@ -39,7 +39,39 @@ public class SensitiveTest {
         String text25 = "我叫程子233,我喜欢赌博,嫖娼, 吸@&#*%*&毒,haha";
         String text26 = "我叫程子233,我喜欢赌博,嫖娼, 吸@&#*%*&毒,haha";
 
-        System.out.println(sensitiveFilter.filter(text));
+        System.out.println(sensitiveFilter.filter(text3));
+        System.out.println(sensitiveFilter.filter(text4));
+        System.out.println(sensitiveFilter.filter(text5));
+        System.out.println(sensitiveFilter.filter(text6));
+        System.out.println(sensitiveFilter.filter(text7));
+        System.out.println(sensitiveFilter.filter(text8));
+        System.out.println(sensitiveFilter.filter(text9));
+        System.out.println(sensitiveFilter.filter(text10));
+        System.out.println(sensitiveFilter.filter(text11));
+        System.out.println(sensitiveFilter.filter(text12));
+        System.out.println(sensitiveFilter.filter(text13));
+        System.out.println(sensitiveFilter.filter(text14));
+        System.out.println(sensitiveFilter.filter(text16));
+        System.out.println(sensitiveFilter.filter(text16));
+        System.out.println(sensitiveFilter.filter(text17));
+        System.out.println(sensitiveFilter.filter(text18));
+        System.out.println(sensitiveFilter.filter(text19));
+        System.out.println(sensitiveFilter.filter(text20));
+        System.out.println(sensitiveFilter.filter(text21));
+        System.out.println(sensitiveFilter.filter(text22));
+        System.out.println(sensitiveFilter.filter(text23));
+        System.out.println(sensitiveFilter.filter(text24));
+        System.out.println(sensitiveFilter.filter(text25));
+        System.out.println(sensitiveFilter.filter(text26));
+        System.out.println(sensitiveFilter.filter(text2));
+        System.out.println(sensitiveFilter.filter(text3));
+        System.out.println(sensitiveFilter.filter(text3));
+        System.out.println(sensitiveFilter.filter(text3));
+        System.out.println(sensitiveFilter.filter(text3));
+        System.out.println(sensitiveFilter.filter(text3));
+        System.out.println(sensitiveFilter.filter(text3));
+        System.out.println(sensitiveFilter.filter(text3));
+        System.out.println(sensitiveFilter.filter(text3));
 
     }
 }
