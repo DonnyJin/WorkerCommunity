@@ -99,10 +99,10 @@ public class ThreadPoolTests {
         log.debug("execute1");
     }
 
-    @Scheduled(initialDelay = 10000, fixedRate = 1000)
-    void execute2() {
-        log.debug("execute2");
-    }
+//    @Scheduled(initialDelay = 10000, fixedRate = 1000)
+//    void execute2() {
+//        log.debug("execute2");
+//    }
 
     @Test
     void testThreadPoolTaskExecutorSimple() {

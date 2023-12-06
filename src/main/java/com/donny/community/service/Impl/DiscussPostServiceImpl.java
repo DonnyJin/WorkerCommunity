@@ -23,8 +23,8 @@ public class DiscussPostServiceImpl implements DiscussPostService, CommunityCons
     private SensitiveFilter sensitiveFilter;
 
     @Override
-    public List<DiscussPost> getPosts(Integer userId, Integer offset, Integer limit) {
-        return discussPostMapper.selectPostList(userId, offset, limit);
+    public List<DiscussPost> getPosts(Integer userId, Integer offset, Integer limit, Integer orderMode) {
+        return discussPostMapper.selectPostList(userId, offset, limit, orderMode);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class DiscussPostServiceImpl implements DiscussPostService, CommunityCons
         discussPost.setTitle(sensitiveFilter.filter(discussPost.getTitle()));
         discussPost.setContent(sensitiveFilter.filter(discussPost.getContent()));
 
-        discussPost.setStatus(1);
+        discussPost.setStatus(0);
         discussPost.setType(0);
         discussPost.setCommentCount(0);
 
@@ -72,6 +72,16 @@ public class DiscussPostServiceImpl implements DiscussPostService, CommunityCons
     @Override
     public Integer updateStatusById(Integer id, Integer status) {
         return discussPostMapper.updateStatus(id, status);
+    }
+
+    @Override
+    public DiscussPost findPostById(Integer id) {
+        return discussPostMapper.selectDiscussPostById(id);
+    }
+
+    @Override
+    public Integer updateScore(Integer id, double score) {
+        return discussPostMapper.updateScore(id, score);
     }
 
 

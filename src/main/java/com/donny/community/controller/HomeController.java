@@ -33,12 +33,12 @@ public class HomeController implements CommunityConstant {
     private HostHolder hostHolder;
 
     @GetMapping("/index")
-    public String getIndexPage(Model model, Page page) {
+    public String getIndexPage(Model model, Page page, @RequestParam(name = "orderMode", defaultValue = "0") Integer orderMode) {
         // 方法调用前，SpringMVC会自动实例化Model和Page，并将Page注入Model
         // 所以在thymeleaf中可以直接访问Page
         page.setRows(discussPostService.getRowsCount(0));
-        page.setPath("/index");
-        List<DiscussPost> posts = discussPostService.getPosts(0,page.getOffset(), page.getPageSize());
+        page.setPath("/index?orderMode=" + orderMode);
+        List<DiscussPost> posts = discussPostService.getPosts(0,page.getOffset(), page.getPageSize(), orderMode);
         List<Map<String, Object>> discussPosts = new ArrayList<>();
         if(posts != null) {
             for(DiscussPost post : posts) {
@@ -53,6 +53,7 @@ public class HomeController implements CommunityConstant {
             }
         }
         model.addAttribute("discussPosts",discussPosts);
+        model.addAttribute("orderMode", orderMode);
         return "/index";
     }
 

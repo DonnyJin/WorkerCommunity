@@ -8,8 +8,11 @@ import com.donny.community.service.LikeService;
 import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.CommunityUtil;
 import com.donny.community.util.HostHolder;
+import com.donny.community.util.RedisUtil;
 import com.sun.javafx.scene.EventHandlerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +32,10 @@ public class LikeController implements CommunityConstant {
 
     @Autowired
     private HostHolder hostHolder;
+
+    @Autowired
+    @Qualifier("redisTemplateConfig")
+    private RedisTemplate redisTemplate;
 
     @PostMapping("/like")
     @ResponseBody
@@ -58,6 +65,10 @@ public class LikeController implements CommunityConstant {
 
             producer.fireEvent(event);
         }
+
+        // 计算帖子分数
+        String key = RedisUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(key, postId);
 
         return CommunityUtil.getJSONString(0, null, map);
     }

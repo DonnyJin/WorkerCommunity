@@ -42,7 +42,7 @@ public class MapperTest {
 //        System.out.println(user);
 //        System.out.println(liubei);
 //        System.out.println(liubei2);
-        List<DiscussPost> posts = discussPostService.getPosts(0,0,10);
+        List<DiscussPost> posts = discussPostService.getPosts(0,0,10, 0);
         System.out.println(posts);
     }
 

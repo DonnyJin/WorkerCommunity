@@ -9,7 +9,10 @@ import com.donny.community.service.UserService;
 import com.donny.community.util.CommunityConstant;
 import com.donny.community.util.CommunityUtil;
 import com.donny.community.util.HostHolder;
+import com.donny.community.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +40,10 @@ public class DiscussPostController implements CommunityConstant {
     private EventProducer producer;
 
     @Autowired
+    @Qualifier("redisTemplateConfig")
+    private RedisTemplate redisTemplate;
+
+    @Autowired
     private HostHolder hostHolder;
 
     @PostMapping("/add")
@@ -62,6 +69,11 @@ public class DiscussPostController implements CommunityConstant {
         event.setEntityId(discussPost.getId());
 
         producer.fireEvent(event);
+
+        // 计算帖子分数
+        String key = RedisUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(key, discussPost.getId());
+
 
         // 报错的情况以后统一处理
         return CommunityUtil.getJSONString(0, "发布成功");
@@ -167,6 +179,10 @@ public class DiscussPostController implements CommunityConstant {
         event.setEntityId(id);
 
         producer.fireEvent(event);
+
+        // 计算帖子分数
+        String key = RedisUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(key, id);
         return CommunityUtil.getJSONString(0);
     }
 
