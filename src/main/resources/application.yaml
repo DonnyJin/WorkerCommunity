@@ -86,8 +86,13 @@ community:
     domain: http://localhost:8082
     context-path: /community
     upload: D:\idea_project\WorkerCommunity\upload
-# slfj
+# slf4j
 logging:
   level:
     com.donny: debug
 
+#caffeine
+caffeine:
+  posts:
+    max-size: 15
+    expire-seconds: 180
